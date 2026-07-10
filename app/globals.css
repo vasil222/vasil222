@@ -76,6 +76,72 @@
   transition: opacity 0.3s;
 }
 
+/* Web3 glassmorphism + glow */
+.glass {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.045),
+    rgba(255, 255, 255, 0.015)
+  );
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.glass-brand {
+  background: radial-gradient(
+      120% 140% at 0% 0%,
+      rgba(140, 255, 33, 0.12),
+      transparent 55%
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.012));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(140, 255, 33, 0.18);
+}
+.glow-brand {
+  box-shadow: 0 0 0 1px rgba(140, 255, 33, 0.12),
+    0 20px 60px -20px rgba(140, 255, 33, 0.35);
+}
+.text-glow {
+  text-shadow: 0 0 26px rgba(140, 255, 33, 0.45);
+}
+/* Animated gradient border wrapper */
+.grad-border {
+  position: relative;
+  border-radius: 24px;
+  background: var(--card);
+}
+.grad-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--angle, 0deg),
+    rgba(140, 255, 33, 0.7),
+    rgba(255, 216, 75, 0.5),
+    rgba(154, 92, 255, 0.5),
+    rgba(140, 255, 33, 0.7)
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: x5-rotate-border 6s linear infinite;
+  pointer-events: none;
+}
+
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes x5-rotate-border {
+  to {
+    --angle: 360deg;
+  }
+}
+
 /* Reveal on scroll */
 .reveal {
   opacity: 0;
@@ -131,7 +197,8 @@
   .animate-spin-slow,
   .animate-spin-slower,
   .animate-marquee,
-  .animate-pulse-dot {
+  .animate-pulse-dot,
+  .grad-border::before {
     animation: none;
   }
 }
