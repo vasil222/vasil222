@@ -7,9 +7,21 @@ export const TOKEN = {
   name: 'X5 Token',
   totalSupply: 1_000_000_000,
   // TODO: replace with your real values once the token is deployed.
-  contractAddress: '' as string, // e.g. "0xabc...def"
-  chain: 'ethereum' as string, // dexscreener chain slug: ethereum | bsc | solana | base ...
-  buyUrl: '#', // DEX swap link
+  contractAddress: '' as string, // Solana mint address, e.g. "So1111...1112"
+  chain: 'solana' as string, // dexscreener chain slug: solana | ethereum | bsc | base ...
+  // Solana RPC endpoint used for wallet connection / balances.
+  rpcEndpoint: 'https://api.mainnet-beta.solana.com',
+  // DEX swap link (e.g. Jupiter/Raydium). Falls back to Jupiter with the mint when set.
+  buyUrl: '' as string,
+}
+
+// Build a Jupiter swap link when a mint is configured, otherwise return null.
+export function getBuyUrl(): string | null {
+  if (TOKEN.buyUrl) return TOKEN.buyUrl
+  if (TOKEN.contractAddress) {
+    return `https://jup.ag/swap/SOL-${TOKEN.contractAddress}`
+  }
+  return null
 }
 
 export const ALLOCATION = [

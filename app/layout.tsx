@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Manrope, Space_Grotesk } from 'next/font/google'
+import { SolanaProvider } from '@/components/solana-provider'
 import './globals.css'
 
 const manrope = Manrope({
